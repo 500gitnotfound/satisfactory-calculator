@@ -169,6 +169,10 @@ val library = recipes {
         CrudeOil * 4
     }
 
+    recipe(Fuel, 5, 8) {
+        CrudeOil * 8
+    }
+
     recipe(Rubber, 4, 8) {
         CrudeOil * 4
     }
