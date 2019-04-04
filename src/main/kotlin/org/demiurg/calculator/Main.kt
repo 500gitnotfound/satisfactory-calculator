@@ -65,8 +65,7 @@ fun main() {
                     val report = library.calculate(component, number)
                     println(report.prettyString())
                     println()
-                } catch (e: Throwable) {
-
+                } catch (e: Exception) {
                     val message = e.message?.let { "$ERROR: $it" } ?: ERROR
                     println(message)
                 }

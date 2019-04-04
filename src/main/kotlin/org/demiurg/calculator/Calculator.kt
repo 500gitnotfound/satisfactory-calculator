@@ -1,9 +1,6 @@
 package org.demiurg.calculator
 
-import org.demiurg.calculator.Component.*
-import org.demiurg.calculator.Resource.*
 import java.util.*
-import kotlin.IllegalStateException
 import kotlin.collections.LinkedHashMap
 import kotlin.math.ceil
 
@@ -165,9 +162,11 @@ class RecipesLibrary {
     val Component.recipeInMinute: RecipeInMinute get() = recipe.inMinute
     val Component.recipe: Recipe get() = get(this)
 
-    operator fun get(component: Component): Recipe = recipeMap[component] ?: TODO()
+    operator fun get(component: Component): Recipe = recipeMap[component] ?: throw CalculatorException("There is no recipe for $component")
 }
 
 fun recipes(init: RecipesLibrary.() -> Unit): RecipesLibrary {
     return RecipesLibrary().apply(init)
 }
+
+class CalculatorException(override val message: String) : Exception(message)
