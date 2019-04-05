@@ -25,14 +25,14 @@ val library = recipes {
     }
 
     // TODO: Alternative
-//    recipe(Wire, 3, 4) {
-//        IronIngot * 2
-//    }
+    recipe(Wire, 3, 4) {
+        IronIngot * 2
+    }
 
     // TODO: Alternative
-//    recipe(Wire, 9, 4) {
-//        CateriumIngot * 1
-//    }
+    recipe(Wire, 9, 4) {
+        CateriumIngot * 1
+    }
 
     recipe(Cable, 4) {
         Wire * 2
@@ -63,10 +63,11 @@ val library = recipes {
     }
 
     // TODO: Alternative
-//    recipe(ReinforcedIronPlate, 3, 12) {
-//        IronPlate * 6
-//        Wire * 30
-//    }
+    recipe(ReinforcedIronPlate, 3, 12) {
+        IronPlate * 6
+        Wire * 30
+        useIt()
+    }
 
     // TODO: Alternative
 //    recipe(ReinforcedIronPlate, 3, 12) {
