@@ -63,7 +63,7 @@ val library = recipes {
     }
 
     // TODO: Alternative
-    recipe(ReinforcedIronPlate, 3, 12) {
+    recipe(ReinforcedIronPlate, 3, 24) {
         IronPlate * 6
         Wire * 30
         useIt()
