@@ -21,7 +21,7 @@ class RecipesLibrary(
 
     fun calculateCountForOneMinute(targetComponent: Component): Map<Item, Double> {
         val targetItemNumber = targetComponent.recipeInMinute.number
-        val itemsCount = LinkedHashMap<Item, Double>()
+        val itemsCount = collectComponentsInOrder(targetComponent).associateTo(LinkedHashMap()) { it to 0.0 }
         val stack = LinkedList<RecipeInMinuteItem>()
         stack.add(RecipeInMinuteItem(targetComponent, targetItemNumber))
         while (stack.isNotEmpty()) {
@@ -36,6 +36,23 @@ class RecipesLibrary(
             }
         }
         return itemsCount
+    }
+
+    private fun collectComponentsInOrder(component: Component): List<Item> {
+        val result = LinkedHashSet<Item>()
+
+        fun dfs(item: Item) {
+            if (item is Component) {
+                for ((inputItem, _) in item.recipe.inputs) {
+                    dfs(inputItem)
+                }
+            }
+            result += item
+        }
+
+        dfs(component)
+
+        return result.reversed()
     }
 
     fun calculate(targetComponent: Component, targetNumber: Int? = null): Report {
