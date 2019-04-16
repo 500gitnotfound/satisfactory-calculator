@@ -1,5 +1,7 @@
 package org.demiurg.calculator
 
+import kotlin.math.ceil
+
 interface Item
 
 enum class Resource : Item {
@@ -35,6 +37,14 @@ data class Recipe(
         val inputs = inputs.map { RecipeInMinuteItem(it.item, it.number * coefficient) }
         RecipeInMinute(output.item, number, inputs)
     }
+
+    fun prettyString(): String = StringBuilder().apply {
+        appendln("${output.item}:")
+        for (input in inputs) {
+            append("  ")
+            appendln(input.item)
+        }
+    }.toString()
 }
 
 data class RecipeInMinute(
@@ -55,11 +65,15 @@ sealed class AbstractReportPart {
     abstract fun prettyString(): String
 }
 
+fun Double.pretty(): String {
+    return "%.0f".format(ceil(this))
+}
+
 data class OreReportPart(
     val resource: Resource,
     val number: Double
 ) : AbstractReportPart() {
-    override fun prettyString(): String = "Resource: $resource\n${INDENT}Number: $number"
+    override fun prettyString(): String = "Resource: $resource\n${INDENT}Number: ${number.pretty()}"
 }
 
 data class ItemReportPart(
@@ -70,7 +84,7 @@ data class ItemReportPart(
 ) : AbstractReportPart() {
     override fun prettyString(): String = """
         Component: $component
-        ${INDENT}Number: $number
+        ${INDENT}Number: ${number.pretty()}
         $INDENT$manufacturerType: $manufacturers
     """.trimIndent()
 }
@@ -78,3 +92,7 @@ data class ItemReportPart(
 data class Report(val reportItems: List<AbstractReportPart>) {
     fun prettyString(): String = reportItems.joinToString("\n\n") { it.prettyString() }
 }
+
+typealias Recipes = List<Recipe>
+
+fun Recipes.prettyString(): String = joinToString("\n") { it.prettyString() }

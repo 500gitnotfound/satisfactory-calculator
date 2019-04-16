@@ -2,6 +2,7 @@ package org.demiurg.calculator
 
 import java.util.*
 import kotlin.collections.LinkedHashMap
+import kotlin.collections.LinkedHashSet
 import kotlin.math.ceil
 
 const val TIME_UNITS_IN_MINUTE = 60.0
@@ -53,6 +54,21 @@ class RecipesLibrary(
         dfs(component)
 
         return result.reversed()
+    }
+
+    fun printRecipes(targetComponent: Component): Recipes {
+        val recipes = LinkedHashSet<Recipe>()
+        val stack = LinkedList<Component>()
+        stack.add(targetComponent)
+        while (stack.isNotEmpty()) {
+            val item = stack.pollFirst()
+            val recipe = item.recipe
+            recipes += recipe
+            recipe.inputs.map { it.item }.filterIsInstance(Component::class.java). forEach {
+                stack.add(it)
+            }
+        }
+        return recipes.toList()
     }
 
     fun calculate(targetComponent: Component, targetNumber: Int? = null): Report {
