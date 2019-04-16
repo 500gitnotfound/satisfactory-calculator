@@ -15,10 +15,10 @@ class RecipesLibraryBuilder {
 
     fun recipe(output: Component, number: Int, time: Int, init: RecipeInputsBuilder.() -> Unit) {
         val recipes = recipeMap.computeIfAbsent(output) { mutableListOf() }
-        var usedRecipe: Boolean = false
+        var usedRecipe = false
         val inputsBuilder = RecipeInputsBuilder { usedRecipe = true }.apply(init)
         val inputs = inputsBuilder.inputs
-        recipes += Recipe(RecipeItem(output, number), time, inputs)
+        recipes += Recipe(RecipeItem(output, number), time, inputs, inputsBuilder.assembler)
 
         if (usedRecipe) {
             chosenRecipes[output] = recipes.size - 1
@@ -29,6 +29,8 @@ class RecipesLibraryBuilder {
 
     inner class RecipeInputsBuilder(private val useFunction: () -> Unit) {
         private val _inputs = mutableListOf<RecipeItem>()
+        var assembler: AssemblerType? = null
+            private set
         val inputs: List<RecipeItem> get() = _inputs
 
         operator fun Item.times(number: Int) {
@@ -37,6 +39,10 @@ class RecipesLibraryBuilder {
 
         fun useIt() {
             useFunction()
+        }
+
+        fun madeIn(assembler: AssemblerType) {
+            this.assembler = assembler
         }
     }
 

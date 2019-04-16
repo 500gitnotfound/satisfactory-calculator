@@ -3,8 +3,14 @@ package org.demiurg.calculator
 import org.demiurg.calculator.Component.*
 
 fun main() {
-    show(Computer, 11)
-    recipes(Computer)
+    showWithRecipes(Computer, 11)
+}
+
+fun showWithRecipes(component: Component, number: Int? = null) {
+    show(component, number)
+    println()
+    println()
+    recipes(component)
 }
 
 fun show(component: Component, number: Int? = null) {
@@ -18,5 +24,6 @@ fun recipes(component: Component) {
 /*
 import org.demiurg.calculator.show
 import org.demiurg.calculator.recipes
+import org.demiurg.calculator.showWithRecipes
 import org.demiurg.calculator.Component.*
  */

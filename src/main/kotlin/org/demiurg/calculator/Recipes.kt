@@ -2,10 +2,12 @@ package org.demiurg.calculator
 
 import org.demiurg.calculator.Component.*
 import org.demiurg.calculator.Resource.*
+import org.demiurg.calculator.AssemblerType.*
 
 val library = recipes {
     recipe(IronIngot, 1) {
         IronOre * 1
+        madeIn(Smelter)
     }
 
     recipe(IronPlate, 4) {
@@ -18,6 +20,7 @@ val library = recipes {
 
     recipe(CopperIngot, 2) {
         CopperOre * 1
+        madeIn(Smelter)
     }
 
     recipe(Wire, 3, 4) {
@@ -102,12 +105,14 @@ val library = recipes {
     recipe(SteelIngot, 2, 4) {
         IronOre * 3
         Coal * 3
+        madeIn(Foundry)
     }
 
     // Alternative
     recipe(SteelIngot, 6, 8) {
         IronIngot * 3
         Coal * 6
+        madeIn(Foundry)
         useIt()
     }
 
@@ -165,6 +170,7 @@ val library = recipes {
 
     recipe(CateriumIngot, 4) {
         CateriumOre * 4
+        madeIn(Smelter)
     }
 
     recipe(Quickwire, 4, 4) {
@@ -180,14 +186,17 @@ val library = recipes {
 
     recipe(Plastic, 3, 8) {
         CrudeOil * 4
+        madeIn(OilRefinery)
     }
 
     recipe(Fuel, 5, 8) {
         CrudeOil * 8
+        madeIn(OilRefinery)
     }
 
     recipe(Rubber, 4, 8) {
         CrudeOil * 4
+        madeIn(OilRefinery)
     }
 
     recipe(CircuitBoard, 12) {

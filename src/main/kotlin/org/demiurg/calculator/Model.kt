@@ -26,11 +26,14 @@ data class RecipeInMinuteItem(
     val number: Double
 )
 
-data class Recipe(
+class Recipe(
     val output: RecipeItem,
     val time: Int,
-    val inputs: List<RecipeItem>
+    val inputs: List<RecipeItem>,
+    assembler: AssemblerType?
 ) {
+    val assembler: AssemblerType = assembler ?: AssemblerType.fromInputs(inputs)
+
     val inMinute: RecipeInMinute by lazy {
         val coefficient = TIME_UNITS_IN_MINUTE / time
         val number = output.number * coefficient
@@ -53,8 +56,22 @@ data class RecipeInMinute(
     val inputs: List<RecipeInMinuteItem>
 )
 
-enum class ManufacturerType {
-    Constructor, Assembler, Manufacturer
+enum class AssemblerType {
+    Constructor,
+    Assembler,
+    Manufacturer,
+    Smelter,
+    Foundry,
+    OilRefinery;
+
+    companion object {
+        fun fromInputs(inputs: List<*>): AssemblerType = when (inputs.size) {
+            1 -> Constructor
+            2 -> Assembler
+            in 3..4 -> Manufacturer
+            else -> throw IllegalArgumentException("Illegal inputs size: ${inputs.size}")
+        }
+    }
 }
 
 sealed class AbstractReportPart(private val exact: Boolean) {
@@ -79,7 +96,7 @@ class ItemReportPart(
     val component: Component,
     val number: Double,
     val manufacturers: Int,
-    val manufacturerType: ManufacturerType,
+    val manufacturerType: AssemblerType,
     exact: Boolean
 ) : AbstractReportPart(exact) {
     override fun prettyString(): String = """

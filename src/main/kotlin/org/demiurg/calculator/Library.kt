@@ -83,14 +83,8 @@ class RecipesLibrary(
             parts += when (item) {
                 is Resource -> OreReportPart(item, number, exact)
                 is Component -> {
-                    val manufacturers = ceil(number / item.recipeInMinute.number).toInt()
-                    val manufacturerType = when (item.recipe.inputs.size) {
-                        1 -> ManufacturerType.Constructor
-                        2 -> ManufacturerType.Assembler
-                        in 3..4 -> ManufacturerType.Manufacturer
-                        else -> throw IllegalStateException()
-                    }
-                    ItemReportPart(item, number, manufacturers, manufacturerType, exact)
+                    val assemblers = ceil(number / item.recipeInMinute.number).toInt()
+                    ItemReportPart(item, number, assemblers, item.recipe.assembler, exact)
                 }
                 else -> throw IllegalStateException("Unknown entity type: $item")
             }
