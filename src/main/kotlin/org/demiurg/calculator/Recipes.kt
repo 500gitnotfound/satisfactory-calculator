@@ -5,7 +5,7 @@ import org.demiurg.calculator.Resource.*
 
 val library = recipes {
     recipe(IronIngot, 1) {
-        IronOre * 2
+        IronOre * 1
     }
 
     recipe(IronPlate, 4) {
@@ -20,17 +20,17 @@ val library = recipes {
         CopperOre * 1
     }
 
-    recipe(Wire, 4, 3) {
+    recipe(Wire, 3, 4) {
         CopperIngot * 1
     }
 
     // TODO: Alternative
-    recipe(Wire, 3, 4) {
-        IronIngot * 2
-    }
+//    recipe(Wire, 3, 4) {
+//        IronIngot * 2
+//    }
 
-    // TODO: Alternative
-    recipe(Wire, 9, 4) {
+    // Alternative
+    recipe(Wire, 9, 8) {
         CateriumIngot * 1
     }
 
@@ -38,11 +38,11 @@ val library = recipes {
         Wire * 2
     }
 
-    // TODO: Alternative
-//    recipe(Cable, 5, 4) {
-//        Wire * 3
-//        Rubber * 2
-//    }
+    // Alternative
+    recipe(Cable, 5, 8) {
+        Wire * 3
+        Rubber * 2
+    }
 
     recipe(Concrete, 4) {
         Limestone * 3
@@ -62,7 +62,7 @@ val library = recipes {
         Screw * 24
     }
 
-    // TODO: Alternative
+    // Alternative
     recipe(ReinforcedIronPlate, 3, 24) {
         IronPlate * 6
         Wire * 30
@@ -80,27 +80,36 @@ val library = recipes {
         Screw * 22
     }
 
+    // Alternative
+    recipe(Rotor, 3, 20) {
+        SteelPipe * 6
+        Wire * 20
+        useIt()
+    }
+
     recipe(ModularFrame, 15) {
         ReinforcedIronPlate * 3
         IronRod * 6
     }
 
-    // TODO: Alternative
-//    recipe(ModularFrame, 3, 15) {
-//        ReinforcedIronPlate * 6
-//        SteelPipe * 6
-//    }
+    // Alternative
+    recipe(ModularFrame, 3, 30) {
+        ReinforcedIronPlate * 6
+        SteelPipe * 6
+        useIt()
+    }
 
     recipe(SteelIngot, 2, 4) {
         IronOre * 3
         Coal * 3
     }
 
-    // TODO: Alternative
-//    recipe(SteelIngot, 6, 4) {
-//        IronIngot * 3
-//        Coal * 6
-//    }
+    // Alternative
+    recipe(SteelIngot, 6, 8) {
+        IronIngot * 3
+        Coal * 6
+        useIt()
+    }
 
     recipe(SteelBeam, 6) {
         SteelIngot * 3
@@ -115,11 +124,12 @@ val library = recipes {
         Concrete * 5
     }
 
-    // TODO: Alternative
-//    recipe(EncasedIndustrialBeam, 3, 15) {
-//        SteelPipe * 18
-//        Concrete * 10
-//    }
+    // Alternative
+    recipe(EncasedIndustrialBeam, 3, 30) {
+        SteelPipe * 18
+        Concrete * 10
+		useIt()
+    }
 
     recipe(Stator, 10) {
         SteelPipe * 3
@@ -144,13 +154,14 @@ val library = recipes {
         Screw * 90
     }
 
-    // TODO: Alternative
-//    recipe(HeavyModularFrame, 3, 30) {
-//        ModularFrame * 8
-//        SteelPipe * 36
-//        EncasedIndustrialBeam * 10
-//        Concrete * 25
-//    }
+    // Alternative
+    recipe(HeavyModularFrame, 3, 64) {
+        ModularFrame * 8
+        SteelPipe * 36
+        EncasedIndustrialBeam * 10
+        Concrete * 25
+		useIt()
+    }
 
     recipe(CateriumIngot, 4) {
         CateriumOre * 4
@@ -160,11 +171,12 @@ val library = recipes {
         CateriumIngot * 1
     }
 
-    // TODO: Alternative
-//    recipe(Quickwire, 12, 4) {
-//        CateriumIngot * 1
-//        CopperIngot * 2
-//    }
+    // Alternative
+    recipe(Quickwire, 12, 8) {
+        CateriumIngot * 1
+        CopperIngot * 2
+        useIt()
+    }
 
     recipe(Plastic, 3, 8) {
         CrudeOil * 4
@@ -183,17 +195,19 @@ val library = recipes {
         Plastic * 6
     }
 
-    // TODO: Alternative
-//    recipe(CircuitBoard, 3, 12) {
-//        Rubber * 16
-//        Wire * 24
-//    }
+    // Alternative
+    recipe(CircuitBoard, 3, 24) {
+        Rubber * 16
+        Wire * 24
+//        useIt()
+    }
 
-    // TODO: Alternative
-//    recipe(CircuitBoard, 3, 12) {
-//        Plastic * 12
-//        Quickwire * 32
-//    }
+    // Alternative
+    recipe(CircuitBoard, 3, 24) {
+        Plastic * 12
+        Quickwire * 32
+        useIt()
+    }
 
     recipe(Computer, 32) {
         CircuitBoard * 5
@@ -202,12 +216,13 @@ val library = recipes {
         Screw * 60
     }
 
-    // TODO: Alternative
-//    recipe(Computer, 3, 32) {
-//        CircuitBoard * 10
-//        Quickwire * 112
-//        Rubber * 48
-//    }
+    // Alternative
+    recipe(Computer, 3, 64) {
+        CircuitBoard * 10
+        Quickwire * 112
+        Rubber * 48
+		useIt()
+    }
 
     recipe(AILimiter, 12) {
         CircuitBoard * 1
