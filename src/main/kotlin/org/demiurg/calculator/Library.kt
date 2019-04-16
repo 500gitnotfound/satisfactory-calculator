@@ -72,6 +72,7 @@ class RecipesLibrary(
     }
 
     fun calculate(targetComponent: Component, targetNumber: Int? = null): Report {
+        val exact = targetNumber == null
         val countMap = if (targetNumber != null) {
             calculateCount(targetComponent, targetNumber)
         } else {
@@ -80,7 +81,7 @@ class RecipesLibrary(
         val parts = mutableListOf<AbstractReportPart>()
         for ((item, number) in countMap) {
             parts += when (item) {
-                is Resource -> OreReportPart(item, number)
+                is Resource -> OreReportPart(item, number, exact)
                 is Component -> {
                     val manufacturers = ceil(number / item.recipeInMinute.number).toInt()
                     val manufacturerType = when (item.recipe.inputs.size) {
@@ -89,7 +90,7 @@ class RecipesLibrary(
                         in 3..4 -> ManufacturerType.Manufacturer
                         else -> throw IllegalStateException()
                     }
-                    ItemReportPart(item, number, manufacturers, manufacturerType)
+                    ItemReportPart(item, number, manufacturers, manufacturerType, exact)
                 }
                 else -> throw IllegalStateException("Unknown entity type: $item")
             }

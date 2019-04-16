@@ -57,31 +57,31 @@ enum class ManufacturerType {
     Constructor, Assembler, Manufacturer
 }
 
-sealed class AbstractReportPart {
+sealed class AbstractReportPart(private val exact: Boolean) {
     companion object {
         const val INDENT = "    "
     }
 
+    protected fun Double.pretty(): String = if (exact) toString() else "%.0f".format(ceil(this))
+
     abstract fun prettyString(): String
 }
 
-fun Double.pretty(): String {
-    return "%.0f".format(ceil(this))
-}
-
-data class OreReportPart(
+class OreReportPart(
     val resource: Resource,
-    val number: Double
-) : AbstractReportPart() {
+    val number: Double,
+    exact: Boolean
+) : AbstractReportPart(exact) {
     override fun prettyString(): String = "Resource: $resource\n${INDENT}Number: ${number.pretty()}"
 }
 
-data class ItemReportPart(
+class ItemReportPart(
     val component: Component,
     val number: Double,
     val manufacturers: Int,
-    val manufacturerType: ManufacturerType
-) : AbstractReportPart() {
+    val manufacturerType: ManufacturerType,
+    exact: Boolean
+) : AbstractReportPart(exact) {
     override fun prettyString(): String = """
         Component: $component
         ${INDENT}Number: ${number.pretty()}
